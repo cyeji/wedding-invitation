@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<title>이승구 ♥ 조예지 결혼합니다</title>
+
+<!-- ─── 카카오톡/SNS 링크 미리보기 카드 (배포 전 실제 URL·이미지로 교체) ─── -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="이승구 ♥ 조예지 결혼합니다">
+<meta property="og:description" content="2026년 ○월 ○일 토요일 낮 12시 · ○○웨딩홀">
+<meta property="og:image" content="assets/photos/og-thumb.jpg">
+<meta property="og:url" content="https://example.com">
+<meta name="theme-color" content="#1A1A18">
+
+<link rel="stylesheet" href="data:text/css,">
+<style>
+@font-face{
+  font-family:'DungGeunMo';
+  src:url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/DungGeunMo.woff') format('woff');
+  font-display:swap;
+}
+:root{
+  --cream:#F4F1EA; --cream-d:#E8E2D4;
+  --coral:#D97757; --coral-d:#C45D3C;
+  --ink:#1A1A18; --sage:#8FA68E; --sky:#A8C5D6; --gold:#E0B453;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%}
+body{
+  background:var(--ink); color:var(--cream);
+  font-family:'DungGeunMo','Galmuri11',-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo',sans-serif;
+  overflow:hidden; touch-action:manipulation;
+  display:flex; align-items:center; justify-content:center;
+}
+#app{
+  position:relative; width:100%; max-width:520px; height:100%;
+  display:flex; flex-direction:column; overflow:hidden;
+}
+.screen{position:absolute; inset:0; display:none; flex-direction:column}
+.screen.on{display:flex}
+
+/* ── 공통 픽셀 버튼 ── */
+.btn{
+  font-family:inherit; font-size:15px; letter-spacing:.05em;
+  color:var(--ink); background:var(--cream);
+  border:3px solid var(--ink); box-shadow:4px 4px 0 rgba(0,0,0,.45);
+  padding:13px 22px; cursor:pointer; display:block; width:100%;
+}
+.btn:active{transform:translate(2px,2px); box-shadow:2px 2px 0 rgba(0,0,0,.45)}
+.btn.primary{background:var(--coral); color:#fff; border-color:var(--coral-d)}
+.btn.ghost{background:transparent; color:var(--cream); border-color:var(--cream)}
+
+/* ── 타이틀 ── */
+#title{
+  align-items:center; justify-content:center; gap:26px; padding:30px 26px;
+  background:
+    radial-gradient(120% 70% at 50% 18%, #3a3a36 0%, var(--ink) 62%);
+  text-align:center;
+}
+#title .crown{font-size:34px; line-height:1}
+#title h1{font-size:26px; line-height:1.55; letter-spacing:.06em}
+#title h1 em{color:var(--coral); font-style:normal}
+#title .sub{font-size:13px; color:#9c978c; line-height:1.9}
+#title .blink{font-size:12px; color:var(--gold); animation:bl 1.1s steps(2) infinite}
+@keyframes bl{50%{opacity:0}}
+#title .menu{width:100%; max-width:300px; display:flex; flex-direction:column; gap:11px}
+
+/* ── 캐릭터 선택 ── */
+#select{padding:26px 22px; gap:18px; align-items:center; justify-content:center; text-align:center}
+#select h2{font-size:18px; line-height:1.6}
+#select .hint{font-size:12px; color:#9c978c; line-height:1.8}
+.picks{display:flex; gap:14px; width:100%; max-width:360px}
+.pick{
+  flex:1; background:#262623; border:3px solid #45443f; padding:16px 8px 14px;
+  cursor:pointer; display:flex; flex-direction:column; align-items:center; gap:10px;
+}
+.pick.sel{border-color:var(--coral); background:#332b28}
+.pick canvas{width:64px; height:80px; image-rendering:pixelated}
+.pick .nm{font-size:15px}
+.pick .rl{font-size:11px; color:#9c978c; line-height:1.6}
+
+/* ── 게임 ── */
+#game{background:#101010}
+#topbar{
+  display:flex; align-items:center; gap:8px; padding:10px 12px;
+  background:#000; border-bottom:2px solid #333; flex:0 0 auto;
+}
+#topbar .q{font-size:11px; color:var(--gold); flex:1; line-height:1.5}
+#topbar button{
+  font-family:inherit; font-size:11px; color:var(--cream); background:#262623;
+  border:2px solid #55534d; padding:7px 10px; cursor:pointer;
+}
+#stage{flex:1; position:relative; display:flex; align-items:center; justify-content:center; overflow:hidden}
+#screen{image-rendering:pixelated; display:block}
+
+/* 대사창 (DOM — 한글 가독성 위해 캔버스 밖) */
+#dlg{
+  position:absolute; left:10px; right:10px; bottom:10px;
+  background:var(--cream); color:var(--ink);
+  border:3px solid var(--ink); box-shadow:5px 5px 0 rgba(0,0,0,.5);
+  padding:13px 15px 15px; display:none; cursor:pointer;
+}
+#dlg.on{display:block}
+#dlg .who{font-size:12px; color:var(--coral-d); margin-bottom:7px}
+#dlg .tx{font-size:14px; line-height:1.85; min-height:3.7em; white-space:pre-wrap}
+#dlg .nx{position:absolute; right:12px; bottom:6px; font-size:11px; color:var(--coral-d); animation:bl 1.1s steps(2) infinite}
+
+/* 아이템 획득 토스트 */
+#toast{
+  position:absolute; left:50%; top:22%; transform:translateX(-50%);
+  background:var(--ink); color:var(--gold); border:3px solid var(--gold);
+  padding:14px 20px; font-size:14px; line-height:1.7; text-align:center;
+  display:none; white-space:nowrap;
+}
+#toast.on{display:block; animation:pop .3s}
+@keyframes pop{from{transform:translateX(-50%) scale(.8); opacity:0}}
+
+/* 컨트롤 */
+#ctrl{
+  flex:0 0 auto; display:flex; align-items:center; justify-content:space-between;
+  padding:14px 22px calc(18px + env(safe-area-inset-bottom)); background:#000;
+  border-top:2px solid #333;
+}
+#pad{display:grid; grid-template-columns:repeat(3,46px); grid-template-rows:repeat(3,46px)}
+#pad b{
+  background:#262623; border:2px solid #55534d; color:var(--cream);
+  font-size:15px; display:flex; align-items:center; justify-content:center;
+  cursor:pointer; font-weight:400;
+}
+#pad b:active,#pad b.hold{background:var(--coral); border-color:var(--coral-d)}
+#pad .sp{background:transparent; border:0}
+#abtn{
+  width:74px; height:74px; border-radius:50%; background:var(--coral);
+  border:3px solid var(--coral-d); color:#fff; font-size:20px; font-family:inherit;
+  cursor:pointer; box-shadow:0 4px 0 #8f4229;
+}
+#abtn:active{transform:translateY(3px); box-shadow:0 1px 0 #8f4229}
+
+/* ── 엔딩 = 청첩장 본체 (DOM: 복사·전화·지도 링크가 살아야 함) ── */
+#ending{background:var(--cream); color:var(--ink); overflow-y:auto; display:none}
+#ending.on{display:block}
+#ending .wrap{max-width:520px; margin:0 auto; padding:0 0 60px}
+.sec{padding:38px 26px; text-align:center; border-bottom:1px solid #ddd6c6}
+.sec:last-child{border-bottom:0}
+.sec h3{font-size:12px; letter-spacing:.28em; color:var(--coral-d); margin-bottom:18px}
+.hero{background:var(--ink); color:var(--cream); padding:46px 26px 40px}
+.hero .ttl{font-size:12px; letter-spacing:.3em; color:var(--gold); margin-bottom:22px}
+.hero .nm{font-size:29px; line-height:1.6; letter-spacing:.08em}
+.hero .nm em{color:var(--coral); font-style:normal; margin:0 10px}
+.hero .dt{font-size:14px; line-height:2; margin-top:22px; color:#c8c2b4}
+.hero .dday{
+  display:inline-block; margin-top:20px; border:2px solid var(--coral);
+  color:var(--coral); font-size:13px; padding:7px 16px;
+}
+.greet{font-size:14px; line-height:2.3}
+.parents{font-size:13px; line-height:2.2; margin-top:22px; color:#4a4741}
+.parents b{font-weight:400; color:var(--ink)}
+.info{font-size:15px; line-height:2.1}
+.info .big{font-size:19px; display:block; margin-bottom:6px}
+.map{height:190px; background:var(--cream-d); border:2px solid var(--ink);
+  display:flex; align-items:center; justify-content:center; font-size:12px; color:#8a857a; margin:16px 0}
+.links{display:flex; gap:8px}
+.links .btn{font-size:12px; padding:11px 6px}
+.ways{text-align:left; font-size:13px; line-height:2.1; margin-top:18px}
+.ways b{color:var(--coral-d); font-weight:400}
+.gal{display:grid; grid-template-columns:repeat(3,1fr); gap:6px}
+.gal div{aspect-ratio:1; background:var(--cream-d); border:1px solid #ddd6c6;
+  display:flex; align-items:center; justify-content:center; font-size:10px; color:#a9a294}
+.acc{margin-top:12px; text-align:left}
+.acc details{border:2px solid var(--ink); margin-bottom:10px; background:#fff}
+.acc summary{padding:14px 16px; font-size:14px; cursor:pointer; list-style:none}
+.acc summary::-webkit-details-marker{display:none}
+.acc summary::after{content:'▾'; float:right; color:var(--coral-d)}
+.acc .row{display:flex; align-items:center; gap:10px; padding:12px 16px; border-top:1px solid #e6e0d2; font-size:13px}
+.acc .row span{flex:1; line-height:1.7}
+.acc .row button{font-family:inherit; font-size:11px; padding:7px 11px;
+  background:var(--ink); color:var(--cream); border:0; cursor:pointer}
+.contact{display:flex; flex-direction:column; gap:9px; text-align:left}
+.contact .row{display:flex; align-items:center; gap:10px; border:2px solid var(--ink); padding:12px 15px; background:#fff}
+.contact .row span{flex:1; font-size:13px; line-height:1.7}
+.contact a{width:38px; height:38px; display:flex; align-items:center; justify-content:center;
+  background:var(--coral); color:#fff; text-decoration:none; font-size:15px}
+.foot{background:var(--ink); color:#8f8a7e; font-size:11px; line-height:2; padding:30px 26px; text-align:center}
+.foot .btn{margin-top:16px}
+.todo{color:#b0a894; font-size:11px}
+</style>
+</head>
+<body>
+<div id="app">
+
+  <!-- ══════════ 타이틀 ══════════ -->
+  <section id="title" class="screen on">
+    <div class="crown">👑</div>
+    <h1>이승구 <em>♥</em> 조예지<br>우리의 모험</h1>
+    <div class="sub">— 8비트 결혼 청첩장 —<br>2026년 ○월 ○일 토요일</div>
+    <div class="blink">▶ 눌러서 시작</div>
+    <div class="menu">
+      <button class="btn primary" data-act="new">NEW GAME · 처음부터</button>
+      <button class="btn" data-act="cont" id="contBtn" style="display:none">CONTINUE · 이어하기</button>
+      <button class="btn ghost" data-act="skip">📜 바로 청첩장 보기</button>
+    </div>
+  </section>
+
+  <!-- ══════════ 캐릭터 선택 ══════════ -->
+  <section id="select" class="screen">
+    <h2>누구의 시점으로<br>이야기를 보시겠어요?</h2>
+    <div class="picks">
+      <div class="pick" data-ch="g">
+        <canvas width="16" height="20"></canvas>
+        <div class="nm">이승구</div>
+        <div class="rl">신랑<br>신랑측 하객</div>
+      </div>
+      <div class="pick" data-ch="b">
+        <canvas width="16" height="20"></canvas>
+        <div class="nm">조예지</div>
+        <div class="rl">신부<br>신부측 하객</div>
+      </div>
+    </div>
+    <div class="hint">같은 이야기도 보는 사람에 따라 달라요.<br>고른 쪽의 연락처·마음 전하실 곳이 먼저 보입니다.</div>
+    <button class="btn primary" id="goBtn" disabled style="max-width:360px;opacity:.4">모험 시작하기</button>
+  </section>
+
+  <!-- ══════════ 게임 ══════════ -->
+  <section id="game" class="screen">
+    <div id="topbar">
+      <div class="q" id="quest">STAGE 1 · 첫 만남의 거리</div>
+      <button data-act="skip">건너뛰기 ▶▶</button>
+    </div>
+    <div id="stage">
+      <canvas id="screen" width="160" height="144"></canvas>
+      <div id="toast"></div>
+      <div id="dlg"><div class="who"></div><div class="tx"></div><div class="nx">▼</div></div>
+    </div>
+    <div id="ctrl">
+      <div id="pad">
+        <b class="sp"></b><b data-d="up">▲</b><b class="sp"></b>
+        <b data-d="left">◀</b><b class="sp"></b><b data-d="right">▶</b>
+        <b class="sp"></b><b data-d="down">▼</b><b class="sp"></b>
+      </div>
+      <button id="abtn">A</button>
+    </div>
+  </section>
+
+  <!-- ══════════ 엔딩 = 청첩장 ══════════ -->
+  <section id="ending">
+   <div class="wrap">
+    <div class="hero">
+      <div class="ttl">W E D D I N G　I N V I T A T I O N</div>
+      <div class="nm">이승구 <em>♥</em> 조예지</div>
+      <div class="dt">2026년 ○월 ○일 토요일 낮 12시<br>○○웨딩홀 3층 그랜드홀</div>
+      <div class="dday" id="dday">D-000</div>
+    </div>
+
+    <div class="sec">
+      <h3>I N V I T A T I O N</h3>
+      <p class="greet todo">— 인사말이 들어갈 자리입니다 —<br><br>서로가 서로에게 가장 편한 사람이 되기까지<br>꽤 긴 모험이 있었습니다.<br>그 마지막 장면에 함께해 주세요.</p>
+      <div class="parents">
+        <b class="todo">○○○ · ○○○</b> 의 장남 <b>이승구</b><br>
+        <b class="todo">○○○ · ○○○</b> 의 차녀 <b>조예지</b>
+      </div>
+    </div>
+
+    <div class="sec">
+      <h3>D A T E　&　P L A C E</h3>
+      <div class="info">
+        <span class="big">2026년 ○월 ○일 토요일 낮 12시</span>
+        ○○웨딩홀 3층 그랜드홀<br>
+        <span class="todo">서울시 ○○구 ○○로 00</span>
+      </div>
+      <div class="map">🗺️ 지도 자리 (카카오맵 SDK)</div>
+      <div class="links">
+        <button class="btn" data-map="kakao">카카오맵</button>
+        <button class="btn" data-map="naver">네이버지도</button>
+        <button class="btn" data-map="tmap">티맵</button>
+      </div>
+      <div class="ways todo">
+        <b>지하철</b> ○호선 ○○역 0번 출구 도보 5분<br>
+        <b>버스</b> ○○○, ○○○ · ○○웨딩홀 앞 하차<br>
+        <b>자가용</b> 내비게이션 «○○웨딩홀» 검색<br>
+        <b>주차</b> 건물 지하 2시간 무료
+      </div>
+    </div>
+
+    <div class="sec">
+      <h3>G A L L E R Y</h3>
+      <div class="gal">
+        <div>사진 1</div><div>사진 2</div><div>사진 3</div>
+        <div>사진 4</div><div>사진 5</div><div>사진 6</div>
+      </div>
+    </div>
+
+    <div class="sec">
+      <h3>C O N T A C T</h3>
+      <div class="contact" id="contact"><!-- JS가 선택한 쪽을 위로 정렬 --></div>
+    </div>
+
+    <div class="sec">
+      <h3>마 음 　 전 하 실 　 곳</h3>
+      <div class="acc" id="accounts"><!-- JS가 선택한 쪽을 위로 정렬 --></div>
+    </div>
+
+    <div class="sec">
+      <h3>G U E S T　B O O K</h3>
+      <p class="todo" style="font-size:13px;line-height:2">축하 메시지를 남겨주세요<br>(Firebase 또는 구글폼 연동 예정)</p>
+      <button class="btn" style="margin-top:16px">✍️ 방명록 남기기</button>
+    </div>
+
+    <div class="foot">
+      이승구 ♥ 조예지 · 2026.○○.○○<br>
+      <button class="btn primary" id="shareBtn">💌 청첩장 공유하기</button>
+      <button class="btn ghost" id="replayBtn" style="margin-top:9px">🎮 게임 다시 하기</button>
+    </div>
+   </div>
+  </section>
+</div>
+
+<script>
+'use strict';
+/* ══════════════════════════════════════════════════════
+   이승구 ♥ 조예지 — 레트로 RPG 모바일 청첩장 [프로토타입]
+   STAGE 1 + 엔딩 뼈대. 맵 2~5는 MAPS 배열에 추가하면 확장됨.
+   ══════════════════════════════════════════════════════ */
+
+/* ─── 팔레트 ─── */
+const PAL = {
+  '0':'#F4F1EA','1':'#E8E2D4','2':'#8FA68E','3':'#6E856D',
+  '4':'#D97757','5':'#C45D3C','6':'#1A1A18','7':'#FFFFFF',
+  '8':'#A8C5D6','9':'#E0B453','a':'#7A5C4A','b':'#4A3B33',
+  'c':'#F2C9A0','d':'#C9A227'
+};
+
+/* ─── 8×8 타일 ─── */
+const TILES = {
+  G:["22222232","23222222","22222223","22322222","22222222","22232222","22222322","23222222"], // 잔디
+  P:["11111011","10111111","11110111","11011111","11111101","01111111","11101111","11111110"], // 길
+  F:["22242222","22222232","24222242","22222222","22322224","22242222","22222232","22222222"], // 꽃밭
+  T:["..3333..",".333333.","33333333","33333333",".333333.","...aa...","...aa...","..bbbb.."], // 나무
+  W:["66666666","60000006","60888806","60888806","60888806","60888806","60000006","66666666"], // 창문
+  H:["11111111","10000001","10111101","10111101","10111101","10000001","11111111","11111111"], // 벽
+  D:["66666666","65555556","65444456","65444456","65444956","65444456","65444456","66666666"], // 문
+  A:["44444444","55555555","44444444","55555555","6.6.6.6.","........","........","........"]  // 차양
+};
+const WALK = {G:1,P:1,F:1};
+
+/* ─── 8×10 캐릭터 스프라이트 (down / up / side) ─── */
+const SPR = {
+  g:{ // 이승구 — 검정 수트
+    down:["..6666..",".666666.",".6cccc6.",".6c66c6.",".6cccc6.",".66cc66.",".674476.",".674476.","..6..6..","..6..6.."],
+    up  :["..6666..",".666666.",".666666.",".666666.",".666666.",".666666.",".677776.",".677776.","..6..6..","..6..6.."],
+    side:["..6666..",".666666.","..6ccc6.","..6c6c6.","..6ccc6.","..66cc6.","..67746.","..67746.","..6.66..","..6..6.."]
+  },
+  b:{ // 조예지 — 드레스
+    down:["..aaaa..",".aaaaaa.",".acccca.",".ac66ca.",".acccca.",".aaccaa.",".a7777a.","a777777a",".777777.","..c..c.."],
+    up  :["..aaaa..",".aaaaaa.",".aaaaaa.",".aaaaaa.",".aaaaaa.",".aaaaaa.",".a7777a.","a777777a",".777777.","..c..c.."],
+    side:["..aaaa..",".aaaaaa.","..accca.","..ac6ca.","..accca.","..aacca.","..a777a.",".a77777.","..7777..","..c.c..."]
+  },
+  n:{ // 친구 NPC
+    down:["..bbbb..",".bbbbbb.",".bccccb.",".bc66cb.",".bccccb.",".bbccbb.",".b2222b.",".b2222b.","..6..6..","..6..6.."],
+    up  :["..bbbb..",".bbbbbb.",".bbbbbb.",".bbbbbb.",".bbbbbb.",".bbbbbb.",".b2222b.",".b2222b.","..6..6..","..6..6.."],
+    side:["..bbbb..",".bbbbbb.","..bcccb.","..bc6cb.","..bcccb.","..bbccb.","..b222b.","..b222b.","..6.66..","..6..6.."]
+  }
+};
+
+/* ─── STAGE 1 맵 (20×18 타일 = 160×144) ─── */
+const MAP1 = [
+"HHHHHHHHHHHHHHHHHHHH",
+"HHWWHHHHDDHHHHWWHHHH",
+"HHWWHHHHDDHHHHWWHHHH",
+"HHHHHHHHDDHHHHHHHHHH",
+"AAAAAAAAAAAAAAAAAAAA",
+"GGPPPPPPPPPPPPPPPPGG",
+"GTPPPPPPPPPPPPPPPPTG",
+"GGPPPPPPPPPPPPPPPPGG",
+"GGPPPPPPPPPPPPPPPPGG",
+"GGPPPPPPPPPPPPPPPPGG",
+"GGPPPPPPPPPPPPPPPPGG",
+"GFPPPPPPPPPPPPPPPPFG",
+"GGPPPPPPPPPPPPPPPPGG",
+"GGGGGGGGPPPPGGGGGGGG",
+"GTGGGGGGPPPPGGGGGGTG",
+"GGGGGGGGPPPPGGGGGGGG",
+"GGGGGGGGPPPPGGGGGGGG",
+"GGGGGGGGPPPPGGGGGGGG"
+];
+
+/* ─── 시점 분기 대사 (2단계 기획: 맵·동선은 같고 텍스트만 두 벌) ─── */
+const NAME = {g:'이승구', b:'조예지'};
+const SCRIPT = {
+  friend:{
+    g:[["친구","승구야! 여기 있었네.\n오늘 소개해준다던 그 사람,\n벌써 와 있어."],
+       ["이승구","…심장이 왜 이렇게 뛰지.\n그냥 커피 한 잔인데."],
+       ["친구","저기 카페 앞에 서 있는 사람.\n가서 인사부터 해!"]],
+    b:[["친구","예지야, 늦었다 늦었어!\n그 사람 벌써 도착했대."],
+       ["조예지","…옷 이거 괜찮나?\n괜히 신경 쓰이네."],
+       ["친구","카페 앞에 서 있는 사람이야.\n가서 말 걸어봐, 좋은 사람이야."]]
+  },
+  partner:{
+    g:[["???","…혹시, 승구 씨?"],
+       ["이승구","아, 네! 맞아요.\n(생각보다… 훨씬 밝은 사람이네)"],
+       ["조예지","반가워요. 저 조예지예요.\n커피 좋아하신다면서요?"],
+       ["이승구","…네. 오늘은 왠지\n무슨 맛인지 기억 안 날 것 같지만요."]],
+    b:[["조예지","(저 사람인가? 사진보다\n어깨가 넓네…)\n…혹시, 승구 씨?"],
+       ["이승구","아, 네! 맞아요."],
+       ["조예지","반가워요, 조예지예요.\n(어… 웃는 게 좀 귀엽다)"],
+       ["이승구","커피 좋아하신다고 들었어요.\n제가 아는 곳이 있는데."]]
+  },
+  after:{
+    g:[["이승구","그날의 커피 맛은 기억 안 나는데,\n헤어질 때 하늘색은 아직도 선명해."]],
+    b:[["조예지","집에 오는 길 내내\n실없이 웃었던 것 같아."]]
+  }
+};
+
+/* ─── 상태 ─── */
+const S = {
+  scene:'title', ch:'g',
+  px:76, py:120, dir:'down', moving:false, frame:0, tick:0,
+  flags:{friend:false, partner:false, item:false},
+  dlg:null, dlgIdx:0, target:null,
+  npc:{ friend:{x:36,y:64,dir:'down'}, partner:{x:112,y:76,dir:'down'} }
+};
+
+const $ = s=>document.querySelector(s);
+const $$ = s=>[...document.querySelectorAll(s)];
+const cv = $('#screen'), ctx = cv.getContext('2d');
+ctx.imageSmoothingEnabled = false;
+
+/* ─── 픽셀 그리기 ─── */
+function drawPix(c, rows, ox, oy){
+  for(let y=0;y<rows.length;y++){
+    const r = rows[y];
+    for(let x=0;x<r.length;x++){
+      const p = r[x];
+      if(p==='.') continue;
+      c.fillStyle = PAL[p];
+      c.fillRect(ox+x, oy+y, 1, 1);
+    }
+  }
+}
+
+/* ─── 화면 배율 (정수배로만 확대해야 도트가 안 뭉개짐) ─── */
+function fit(){
+  const st = $('#stage');
+  // 0.5 단위로 내림 — 화면 폭은 최대한 채우되 도트가 심하게 뭉개지진 않게
+  const raw = Math.min(st.clientWidth/160, st.clientHeight/144);
+  const s = Math.max(1, Math.floor(raw*2)/2);
+  cv.style.width = (160*s)+'px';
+  cv.style.height = (144*s)+'px';
+}
+addEventListener('resize', fit);
+
+/* ─── 충돌 ─── */
+function solid(x, y){
+  // 캐릭터 발밑 6×4 박스로 판정
+  for(const [dx,dy] of [[1,6],[6,6],[1,9],[6,9]]){
+    const tx = Math.floor((x+dx)/8), ty = Math.floor((y+dy)/8);
+    if(tx<0||ty<0||tx>19||ty>17) return true;
+    if(!WALK[MAP1[ty][tx]]) return true;
+  }
+  return false;
+}
+
+/* ─── 렌더 ─── */
+function render(){
+  for(let y=0;y<18;y++) for(let x=0;x<20;x++)
+    drawPix(ctx, TILES[MAP1[y][x]], x*8, y*8);
+
+  const list = [];
+  if(!S.flags.partner || true) list.push({...S.npc.friend, sp:SPR.n});
+  list.push({...S.npc.partner, sp:SPR[S.ch==='g'?'b':'g']});
+  list.push({x:S.px, y:S.py, dir:S.dir, sp:SPR[S.ch], me:true});
+  list.sort((a,b)=>a.y-b.y);
+
+  for(const o of list){
+    const bob = (o.me && S.moving && (S.frame&1)) ? -1 : 0;
+    const flip = o.dir==='left';
+    const key = (o.dir==='left'||o.dir==='right') ? 'side' : o.dir;
+    if(flip){
+      ctx.save(); ctx.translate(Math.round(o.x)+8, 0); ctx.scale(-1,1);
+      drawPix(ctx, o.sp[key], 0, Math.round(o.y)+bob);
+      ctx.restore();
+    } else {
+      drawPix(ctx, o.sp[key], Math.round(o.x), Math.round(o.y)+bob);
+    }
+  }
+
+  // 상호작용 가능 표시
+  const t = nearTarget();
+  if(t && !S.dlg){
+    ctx.fillStyle = PAL['9'];
+    const yy = Math.round(t.y) - 4 + ((S.tick>>4)&1);
+    ctx.fillRect(Math.round(t.x)+3, yy, 2, 2);
+  }
+}
+
+/* ─── 근처 대화 대상 ─── */
+function nearTarget(){
+  const cand = [];
+  if(!S.flags.friend) cand.push(S.npc.friend);
+  else if(!S.flags.partner) cand.push(S.npc.partner);
+  else cand.push(S.npc.partner);
+  for(const c of cand){
+    if(Math.abs(c.x-S.px)<16 && Math.abs(c.y-S.py)<16) return c;
+  }
+  return null;
+}
+
+/* ─── 대사 ─── */
+function say(lines, after){
+  S.dlg = {lines, after}; S.dlgIdx = 0;
+  showLine();
+}
+function showLine(){
+  const [who, tx] = S.dlg.lines[S.dlgIdx];
+  $('#dlg .who').textContent = who;
+  $('#dlg .tx').textContent = tx;
+  $('#dlg').classList.add('on');
+}
+function advance(){
+  if(!S.dlg) return;
+  S.dlgIdx++;
+  if(S.dlgIdx < S.dlg.lines.length){ showLine(); return; }
+  $('#dlg').classList.remove('on');
+  const cb = S.dlg.after; S.dlg = null;
+  if(cb) cb();
+}
+$('#dlg').addEventListener('click', advance);
+
+function toast(msg, then){
+  const t = $('#toast');
+  t.textContent = msg; t.classList.add('on');
+  setTimeout(()=>{ t.classList.remove('on'); if(then) then(); }, 1600);
+}
+
+/* ─── 상호작용 ─── */
+function interact(){
+  if(S.dlg){ advance(); return; }
+  const t = nearTarget();
+  if(!t) return;
+
+  if(!S.flags.friend){
+    say(SCRIPT.friend[S.ch], ()=>{
+      S.flags.friend = true;
+      quest('카페 앞의 그 사람에게 말을 걸자');
+      save();
+    });
+  } else if(!S.flags.partner){
+    say(SCRIPT.partner[S.ch], ()=>{
+      S.flags.partner = true;
+      toast('🎫 «첫 만남의 티켓» 획득!', ()=>{
+        say(SCRIPT.after[S.ch], ()=>{
+          S.flags.item = true;
+          quest('STAGE 1 클리어! · A를 눌러 다음으로');
+          save();
+        });
+      });
+    });
+  } else {
+    // 프로토타입: 여기서 바로 엔딩. 확장 시 STAGE 2로 연결.
+    go('ending');
+  }
+}
+function quest(t){ $('#quest').textContent = t; }
+
+/* ─── 입력 ─── */
+const held = {};
+$$('#pad b[data-d]').forEach(b=>{
+  const d = b.dataset.d;
+  const on = e=>{ e.preventDefault(); held[d]=1; b.classList.add('hold'); S.target=null; };
+  const off= e=>{ e.preventDefault(); held[d]=0; b.classList.remove('hold'); };
+  b.addEventListener('touchstart',on,{passive:false});
+  b.addEventListener('touchend',off); b.addEventListener('touchcancel',off);
+  b.addEventListener('mousedown',on); b.addEventListener('mouseup',off);
+  b.addEventListener('mouseleave',off);
+});
+$('#abtn').addEventListener('click', interact);
+addEventListener('keydown', e=>{
+  const m = {ArrowUp:'up',ArrowDown:'down',ArrowLeft:'left',ArrowRight:'right'};
+  if(m[e.key]){ held[m[e.key]]=1; S.target=null; e.preventDefault(); }
+  if(e.key===' '||e.key==='Enter'){ interact(); e.preventDefault(); }
+});
+addEventListener('keyup', e=>{
+  const m = {ArrowUp:'up',ArrowDown:'down',ArrowLeft:'left',ArrowRight:'right'};
+  if(m[e.key]) held[m[e.key]]=0;
+});
+// 탭-투-무브 (어르신·저연령 대응. D패드와 병행)
+cv.addEventListener('click', e=>{
+  if(S.dlg) return;
+  const r = cv.getBoundingClientRect();
+  S.target = {
+    x: (e.clientX-r.left)/r.width*160 - 4,
+    y: (e.clientY-r.top )/r.height*144 - 5
+  };
+});
+
+/* ─── 루프 ─── */
+const SPD = 0.75;
+function step(){
+  S.tick++;
+  if(S.scene==='game'){
+    let dx=0, dy=0;
+    if(!S.dlg){
+      if(held.left) dx=-1; else if(held.right) dx=1;
+      if(held.up) dy=-1; else if(held.down) dy=1;
+      if(!dx && !dy && S.target){
+        const tx = S.target.x-S.px, ty = S.target.y-S.py;
+        if(Math.abs(tx)>2) dx = Math.sign(tx);
+        else if(Math.abs(ty)>2) dy = Math.sign(ty);
+        else S.target = null;
+      }
+    }
+    S.moving = !!(dx||dy);
+    if(dx) S.dir = dx<0?'left':'right';
+    else if(dy) S.dir = dy<0?'up':'down';
+    if(dx){ const nx=S.px+dx*SPD; if(!solid(nx,S.py)) S.px=nx; else S.target=null; }
+    if(dy){ const ny=S.py+dy*SPD; if(!solid(S.px,ny)) S.py=ny; else S.target=null; }
+    if(S.moving && S.tick%8===0) S.frame++;
+    render();
+  }
+  requestAnimationFrame(step);
+}
+
+/* ─── 저장 ─── */
+const KEY = 'lsg-cyj-wedding-v1';
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify({ch:S.ch, flags:S.flags})); }catch(e){} }
+function load(){ try{ return JSON.parse(localStorage.getItem(KEY)); }catch(e){ return null; } }
+
+/* ─── 씬 전환 ─── */
+function go(name){
+  S.scene = name;
+  $$('.screen').forEach(s=>s.classList.remove('on'));
+  $('#ending').classList.remove('on');
+  if(name==='ending'){ $('#ending').classList.add('on'); buildEnding(); window.scrollTo(0,0); $('#ending').scrollTop=0; }
+  else $('#'+(name==='game'?'game':name)).classList.add('on');
+  if(name==='game'){ fit(); render(); }
+}
+
+/* ─── 엔딩(청첩장) 조립 — 선택한 쪽을 위로 ─── */
+const SIDE = {
+  g:{label:'신랑측', who:'이승구',
+     contacts:[['신랑 이승구','010-0000-0000'],['신랑 아버지 ○○○','010-0000-0000'],['신랑 어머니 ○○○','010-0000-0000']],
+     accounts:[['이승구','○○은행 000-0000-0000'],['아버지 ○○○','○○은행 000-0000-0000'],['어머니 ○○○','○○은행 000-0000-0000']]},
+  b:{label:'신부측', who:'조예지',
+     contacts:[['신부 조예지','010-0000-0000'],['신부 아버지 ○○○','010-0000-0000'],['신부 어머니 ○○○','010-0000-0000']],
+     accounts:[['조예지','○○은행 000-0000-0000'],['아버지 ○○○','○○은행 000-0000-0000'],['어머니 ○○○','○○은행 000-0000-0000']]}
+};
+function buildEnding(){
+  const order = S.ch==='g' ? ['g','b'] : ['b','g'];
+
+  $('#contact').innerHTML = order.flatMap(k=>SIDE[k].contacts).map(([n,t])=>`
+    <div class="row"><span>${n}</span>
+      <a href="tel:${t.replace(/-/g,'')}">📞</a>
+      <a href="sms:${t.replace(/-/g,'')}">💬</a></div>`).join('');
+
+  $('#accounts').innerHTML = order.map((k,i)=>`
+    <details ${i===0?'open':''}>
+      <summary>${SIDE[k].label}에게</summary>
+      ${SIDE[k].accounts.map(([n,a])=>`
+        <div class="row"><span>${n}<br>${a}</span>
+          <button data-copy="${a}">복사</button></div>`).join('')}
+    </details>`).join('');
+
+  // D-Day (실제 예식일로 교체)
+  const WEDDING = new Date(2026, 9, 10, 12, 0);
+  const d = Math.ceil((WEDDING - new Date())/864e5);
+  $('#dday').textContent = d>0 ? `D-${d}` : (d===0 ? 'D-DAY' : '결혼했습니다 💍');
+}
+$('#ending').addEventListener('click', async e=>{
+  const b = e.target.closest('[data-copy]');
+  if(b){
+    const txt = b.dataset.copy.replace(/^.*?\s/,'');
+    try{ await navigator.clipboard.writeText(txt); }catch(_){
+      const ta=document.createElement('textarea'); ta.value=txt; document.body.appendChild(ta);
+      ta.select(); document.execCommand('copy'); ta.remove();
+    }
+    b.textContent='복사됨'; setTimeout(()=>b.textContent='복사',1200);
+  }
+  if(e.target.dataset.map){ alert('배포 시 실제 지도 앱 링크 연결 (카카오맵/네이버지도/티맵)'); }
+});
+$('#shareBtn').addEventListener('click', async ()=>{
+  const data = {title:'이승구 ♥ 조예지 결혼합니다', text:'2026년 ○월 ○일 토요일 낮 12시', url:location.href};
+  if(navigator.share){ try{ await navigator.share(data); return; }catch(_){} }
+  try{ await navigator.clipboard.writeText(location.href); alert('링크가 복사되었습니다'); }
+  catch(_){ alert(location.href); }
+});
+$('#replayBtn').addEventListener('click', ()=>{
+  S.flags = {friend:false, partner:false, item:false};
+  S.px=76; S.py=120; S.dir='up'; save();
+  quest('STAGE 1 · 첫 만남의 거리');
+  go('game');
+});
+
+/* ─── 타이틀 / 선택 ─── */
+$$('[data-act]').forEach(b=>b.addEventListener('click', ()=>{
+  const a = b.dataset.act;
+  if(a==='skip'){ go('ending'); }
+  if(a==='new'){ localStorage.removeItem(KEY); go('select'); }
+  if(a==='cont'){
+    const sv = load();
+    if(sv){ S.ch=sv.ch; S.flags=sv.flags; }
+    quest(S.flags.item ? 'STAGE 1 클리어! · A를 눌러 다음으로'
+        : S.flags.friend ? '카페 앞의 그 사람에게 말을 걸자'
+        : 'STAGE 1 · 친구에게 말을 걸자');
+    go('game');
+  }
+}));
+$$('.pick').forEach(p=>{
+  // 선택지 미리보기 스프라이트
+  const c = p.querySelector('canvas').getContext('2d');
+  c.imageSmoothingEnabled = false;
+  c.scale(2,2);
+  drawPix(c, SPR[p.dataset.ch].down, 0, 0);
+  p.addEventListener('click', ()=>{
+    $$('.pick').forEach(x=>x.classList.remove('sel'));
+    p.classList.add('sel');
+    S.ch = p.dataset.ch;
+    const g = $('#goBtn'); g.disabled=false; g.style.opacity=1;
+    g.textContent = `${NAME[S.ch]}(으)로 모험 시작하기`;
+  });
+});
+$('#goBtn').addEventListener('click', ()=>{
+  S.px=76; S.py=120; S.dir='up';
+  quest('STAGE 1 · 친구에게 말을 걸자');
+  save(); go('game');
+});
+
+/* ─── 시작 ─── */
+if(load()) $('#contBtn').style.display='block';
+// 링크에 #invitation 이 붙어 오면 게임 건너뛰고 청첩장으로
+if(location.hash === '#invitation') go('ending');
+fit();
+requestAnimationFrame(step);
+</script>
+</body>
+</html>
