@@ -23,6 +23,22 @@ open index.html      # 브라우저 창을 세로로 좁히면 실제 폰 화면
 | `PLAN.md` | 기획서 — 컨셉, 맵별 시나리오, 아트/기술 설계, 개발 계획, 준비물 체크리스트 |
 | `index.html` | 결과물 본체 (HTML+CSS+JS 전부 인라인) |
 | `assets/` | 작업용 원본 (최종 배포 시 base64로 인라인) |
+| `notice/` | **사내 공지용 정적 청첩장 이미지** — `notice.html` 편집 후 `cd notice && node shoot.mjs` |
+| `notice/img/` | 출력물: 세로 2160×2700, 가로 2400×1260 PNG |
+
+### 사내 공지용 이미지
+
+```bash
+cd notice && node shoot.mjs
+```
+
+QR은 `segno`로 생성한 `notice/qr.svg`이며 현재 `https://cyeji.github.io/wedding-invitation`를 가리킵니다.
+배포 URL이 확정되면 QR을 다시 만들어야 합니다.
+
+```bash
+python3 -m venv /tmp/qrenv && /tmp/qrenv/bin/pip install segno
+/tmp/qrenv/bin/python -c "import segno; segno.make('실제URL', error='h').save('notice/qr.svg', scale=10, border=2, dark='#1A1A18', light=None)"
+```
 
 ## 남은 작업
 

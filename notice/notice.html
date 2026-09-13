@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>사내 공지용 청첩장 이미지 — 이승구 ♥ 조예지</title>
+<style>
+/* ══════════════════════════════════════════════════════════
+   사내 공지/단톡방용 정적 청첩장 이미지
+   세로 1080×1350 (메인) + 가로 1200×630 (메일·슬랙)
+   shoot.mjs 가 deviceScaleFactor 2 로 촬영 → 2배 해상도 PNG
+   ══════════════════════════════════════════════════════════ */
+:root{
+  --cream:#F4F1EA; --cream-d:#E8E2D4;
+  --coral:#D97757; --coral-d:#C45D3C;
+  --ink:#1A1A18; --mute:#6E6A61; --gold:#E0B453;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  background:#2b2b28; padding:40px; display:flex; flex-direction:column;
+  align-items:center; gap:40px;
+  font-family:'Apple SD Gothic Neo','Pretendard','Noto Sans KR',-apple-system,sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+.label{color:#8f8a7e; font-size:13px; letter-spacing:.1em}
+.card{background:var(--cream); color:var(--ink); position:relative; overflow:hidden}
+
+/* 공통 요소 */
+.kicker{
+  font-size:15px; letter-spacing:.42em; color:var(--coral-d);
+  font-weight:500; text-indent:.42em;
+}
+.names{ font-weight:300; letter-spacing:.06em; line-height:1.25; }
+.names em{ font-style:normal; color:var(--coral); }
+.rule{ width:52px; height:2px; background:var(--coral); }
+.date{ font-weight:500; letter-spacing:-.01em; }
+.venue{ color:var(--mute); font-weight:400; }
+.parents{ color:#8d887d; letter-spacing:.01em; }
+.parents b{ font-weight:500; color:#5d594f; }
+
+/* QR 밴드 */
+.band{
+  position:absolute; left:0; right:0; bottom:0; background:var(--ink);
+  display:flex; align-items:center; gap:26px;
+}
+.band .qr{ background:#fff; display:flex; align-items:center; justify-content:center; }
+.band .qr img{ display:block; }
+.band .txt{ color:var(--cream); }
+.band .txt .t1{ color:var(--gold); letter-spacing:.05em; font-weight:500; }
+.band .txt .t2{ color:#9c978c; line-height:1.75; }
+
+/* ─────────── 세로 1080×1350 ─────────── */
+.v{
+  width:1080px; height:1350px;
+  /* 하단 250px 은 QR 밴드 자리 — 그만큼 빼고 세로 중앙 정렬 */
+  padding:70px 90px 320px; display:flex; flex-direction:column;
+  align-items:center; justify-content:center;
+}
+.v::before{ /* 안쪽 얇은 테두리 */
+  content:''; position:absolute; inset:38px 38px 250px; border:2px solid #ddd6c6;
+}
+.v > *:not(.band){ position:relative; } /* .band 는 absolute 유지 (하단 전체 폭) */
+.v .kicker{ margin-top:34px; }
+.v .heart{ font-size:54px; color:var(--coral); margin:52px 0 26px; }
+.v .ko{ font-size:34px; letter-spacing:.3em; color:#4a4741; text-indent:.3em; font-weight:400; }
+.v .names{ font-size:96px; margin-top:34px; }
+.v .names em{ margin:0 30px; font-size:76px; vertical-align:6px; }
+.v .rule{ margin:56px 0; }
+.v .date{ font-size:46px; }
+.v .venue{ font-size:34px; margin-top:20px; line-height:1.6; text-align:center; }
+.v .parents{ font-size:26px; margin-top:56px; line-height:2; text-align:center; }
+.v .band{ height:250px; padding:0 74px; }
+.v .band .qr{ width:176px; height:176px; padding:10px; }
+.v .band .qr img{ width:156px; height:156px; }
+.v .band .txt .t1{ font-size:29px; }
+.v .band .txt .t2{ font-size:22px; margin-top:12px; }
+
+/* ─────────── 가로 1200×630 ─────────── */
+.h{
+  width:1200px; height:630px; display:flex; align-items:stretch;
+}
+.h .left{
+  flex:1; padding:64px 56px 64px 72px; display:flex; flex-direction:column;
+  justify-content:center; align-items:flex-start;
+}
+.h .kicker{ font-size:14px; letter-spacing:.36em; }
+.h .names{ font-size:68px; margin-top:26px; }
+.h .names em{ margin:0 20px; font-size:54px; vertical-align:5px; }
+.h .rule{ margin:34px 0; }
+.h .date{ font-size:32px; }
+.h .venue{ font-size:25px; margin-top:14px; }
+.h .parents{ font-size:19px; margin-top:34px; line-height:1.9; }
+.h .right{
+  width:372px; background:var(--ink); display:flex; flex-direction:column;
+  align-items:center; justify-content:center; gap:26px; padding:40px;
+}
+.h .right .qr{ background:#fff; padding:12px; }
+.h .right .qr img{ width:186px; height:186px; display:block; }
+.h .right .t1{ color:var(--gold); font-size:23px; font-weight:500; letter-spacing:.04em; }
+.h .right .t2{ color:#9c978c; font-size:18px; line-height:1.75; text-align:center; margin-top:-14px; }
+</style>
+</head>
+<body>
+
+<div class="label">① 세로형 1080×1350 — 사내 게시판 · 단톡방</div>
+<section class="card v">
+  <div class="kicker">W E D D I N G</div>
+  <div class="heart">♥</div>
+  <div class="ko">결혼합니다</div>
+  <div class="names">이승구 <em>♥</em> 조예지</div>
+  <div class="rule"></div>
+  <div class="date">2026년 10월 10일 토요일 낮 12시</div>
+  <div class="venue">○○웨딩홀 3층 그랜드홀<br>서울시 ○○구 ○○로 00</div>
+  <div class="parents">
+    <b>○○○ · ○○○</b> 의 장남 <b>이승구</b><br>
+    <b>○○○ · ○○○</b> 의 차녀 <b>조예지</b>
+  </div>
+  <div class="band">
+    <div class="qr"><img src="qr.svg" alt="모바일 청첩장 QR"></div>
+    <div class="txt">
+      <div class="t1">모바일 청첩장</div>
+      <div class="t2">QR을 찍어주세요<br>게임으로 만든 청첩장이에요 🎮</div>
+    </div>
+  </div>
+</section>
+
+<div class="label">② 가로형 1200×630 — 메일 본문 · 슬랙</div>
+<section class="card h">
+  <div class="left">
+    <div class="kicker">W E D D I N G　I N V I T A T I O N</div>
+    <div class="names">이승구 <em>♥</em> 조예지</div>
+    <div class="rule"></div>
+    <div class="date">2026년 10월 10일 토요일 낮 12시</div>
+    <div class="venue">○○웨딩홀 3층 그랜드홀 · 서울시 ○○구 ○○로 00</div>
+    <div class="parents">
+      <b>○○○ · ○○○</b> 의 장남 <b>이승구</b> &nbsp;/&nbsp;
+      <b>○○○ · ○○○</b> 의 차녀 <b>조예지</b>
+    </div>
+  </div>
+  <div class="right">
+    <div class="qr"><img src="qr.svg" alt="모바일 청첩장 QR"></div>
+    <div class="t1">모바일 청첩장</div>
+    <div class="t2">게임으로 만든<br>청첩장이에요 🎮</div>
+  </div>
+</section>
+
+</body>
+</html>
