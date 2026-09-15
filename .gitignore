@@ -2,3 +2,4 @@ shots/
 .omc/
 .DS_Store
 node_modules/
+.serena/
