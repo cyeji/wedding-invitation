@@ -8,7 +8,7 @@
 <!-- ─── 카카오톡/SNS 링크 미리보기 카드 (배포 전 실제 URL·이미지로 교체) ─── -->
 <meta property="og:type" content="website">
 <meta property="og:title" content="이승구 ♥ 조예지 결혼합니다">
-<meta property="og:description" content="2026년 ○월 ○일 토요일 낮 12시 · ○○웨딩홀">
+<meta property="og:description" content="2027년 2월 21일 일요일 오후 1시 40분 · 루이비스컨벤션 송파문정점">
 <meta property="og:image" content="assets/photos/og-thumb.jpg">
 <meta property="og:url" content="https://example.com">
 <meta name="theme-color" content="#1A1A18">
@@ -105,6 +105,23 @@ body{
 #dlg .who{font-size:12px; color:var(--coral-d); margin-bottom:7px}
 #dlg .tx{font-size:14px; line-height:1.85; min-height:3.7em; white-space:pre-wrap}
 #dlg .nx{position:absolute; right:12px; bottom:6px; font-size:11px; color:var(--coral-d); animation:bl 1.1s steps(2) infinite}
+#dlg .ch{display:none; gap:8px; margin-top:10px}
+#dlg .ch.on{display:flex}
+#dlg .ch button{flex:1; font-family:inherit; font-size:14px; padding:10px; background:var(--coral); color:#fff; border:2px solid var(--coral-d); cursor:pointer}
+#inv{font-size:12px; letter-spacing:2px}
+#stage{transition:opacity .25s}
+#stage.fade{opacity:0}
+
+/* 사진 팝업 (STAGE 2) */
+#photo{position:absolute; inset:0; background:rgba(0,0,0,.85); display:none; flex-direction:column;
+  align-items:center; justify-content:center; gap:12px; padding:20px; cursor:pointer}
+#photo.on{display:flex}
+#photo .frame{width:min(78%,260px); aspect-ratio:4/3; background:var(--cream); border:4px solid #fff;
+  box-shadow:5px 5px 0 rgba(0,0,0,.6); display:flex; align-items:center; justify-content:center; overflow:hidden}
+#photo img{width:100%; height:100%; object-fit:cover}
+#photo .ph{font-size:34px}
+#photo .cap{font-size:13px; color:var(--cream); text-align:center; line-height:1.7}
+#photo .nx{font-size:11px; color:var(--gold); animation:bl 1.1s steps(2) infinite}
 
 /* 아이템 획득 토스트 */
 #toast{
@@ -193,7 +210,7 @@ body{
   <section id="title" class="screen on">
     <div class="crown">👑</div>
     <h1>이승구 <em>♥</em> 조예지<br>우리의 모험</h1>
-    <div class="sub">— 8비트 결혼 청첩장 —<br>2026년 ○월 ○일 토요일</div>
+    <div class="sub">— 8비트 결혼 청첩장 —<br>2027년 2월 21일 일요일</div>
     <div class="blink">▶ 눌러서 시작</div>
     <div class="menu">
       <button class="btn primary" data-act="new">NEW GAME · 처음부터</button>
@@ -224,13 +241,15 @@ body{
   <!-- ══════════ 게임 ══════════ -->
   <section id="game" class="screen">
     <div id="topbar">
-      <div class="q" id="quest">STAGE 1 · 첫 만남의 거리</div>
+      <div class="q" id="quest">STAGE 1 · 첫 만남의 스터디</div>
+      <span id="inv"></span>
       <button data-act="skip">건너뛰기 ▶▶</button>
     </div>
     <div id="stage">
       <canvas id="screen" width="160" height="144"></canvas>
       <div id="toast"></div>
-      <div id="dlg"><div class="who"></div><div class="tx"></div><div class="nx">▼</div></div>
+      <div id="dlg"><div class="who"></div><div class="tx"></div><div class="ch"></div><div class="nx">▼</div></div>
+      <div id="photo"><div class="frame"><img alt=""><div class="ph">📷</div></div><div class="cap"></div><div class="nx">▼ 탭해서 닫기</div></div>
     </div>
     <div id="ctrl">
       <div id="pad">
@@ -248,25 +267,25 @@ body{
     <div class="hero">
       <div class="ttl">W E D D I N G　I N V I T A T I O N</div>
       <div class="nm">이승구 <em>♥</em> 조예지</div>
-      <div class="dt">2026년 ○월 ○일 토요일 낮 12시<br>○○웨딩홀 3층 그랜드홀</div>
+      <div class="dt">2027년 2월 21일 일요일 오후 1시 40분<br>루이비스컨벤션 송파문정점</div>
       <div class="dday" id="dday">D-000</div>
     </div>
 
     <div class="sec">
       <h3>I N V I T A T I O N</h3>
-      <p class="greet todo">— 인사말이 들어갈 자리입니다 —<br><br>서로가 서로에게 가장 편한 사람이 되기까지<br>꽤 긴 모험이 있었습니다.<br>그 마지막 장면에 함께해 주세요.</p>
+      <p class="greet">서로가 서로에게 가장 편한 사람이 되기까지<br>꽤 긴 모험이 있었습니다.<br>그 마지막 장면에 함께해 주세요.</p>
       <div class="parents">
-        <b class="todo">○○○ · ○○○</b> 의 장남 <b>이승구</b><br>
-        <b class="todo">○○○ · ○○○</b> 의 차녀 <b>조예지</b>
+        <b>이철수 · 김영희</b> 의 장남 <b>이승구</b><br>
+        <b>조민수 · 박미정</b> 의 차녀 <b>조예지</b>
       </div>
     </div>
 
     <div class="sec">
       <h3>D A T E　&　P L A C E</h3>
       <div class="info">
-        <span class="big">2026년 ○월 ○일 토요일 낮 12시</span>
-        ○○웨딩홀 3층 그랜드홀<br>
-        <span class="todo">서울시 ○○구 ○○로 00</span>
+        <span class="big">2027년 2월 21일 일요일 오후 1시 40분</span>
+        루이비스컨벤션 송파문정점 그레이스홀<br>
+        서울 송파구 법원로9길 26 H비즈니스파크 D동 B1층
       </div>
       <div class="map">🗺️ 지도 자리 (카카오맵 SDK)</div>
       <div class="links">
@@ -274,11 +293,10 @@ body{
         <button class="btn" data-map="naver">네이버지도</button>
         <button class="btn" data-map="tmap">티맵</button>
       </div>
-      <div class="ways todo">
-        <b>지하철</b> ○호선 ○○역 0번 출구 도보 5분<br>
-        <b>버스</b> ○○○, ○○○ · ○○웨딩홀 앞 하차<br>
-        <b>자가용</b> 내비게이션 «○○웨딩홀» 검색<br>
-        <b>주차</b> 건물 지하 2시간 무료
+      <div class="ways">
+        <b>지하철</b> 8호선 문정역 3번 출구 도보 9분 · 셔틀버스 10분 간격<br>
+        <b>자가용</b> 내비게이션 «루이비스컨벤션 송파문정점» 검색<br>
+        <b>주차</b> H비즈니스파크 주차장 1,370대 · 2시간 무료
       </div>
     </div>
 
@@ -307,7 +325,7 @@ body{
     </div>
 
     <div class="foot">
-      이승구 ♥ 조예지 · 2026.○○.○○<br>
+      이승구 ♥ 조예지 · 2027.02.21<br>
       <button class="btn primary" id="shareBtn">💌 청첩장 공유하기</button>
       <button class="btn ghost" id="replayBtn" style="margin-top:9px">🎮 게임 다시 하기</button>
     </div>
@@ -335,15 +353,21 @@ const TILES = {
   G:["22222232","23222222","22222223","22322222","22222222","22232222","22222322","23222222"], // 잔디
   P:["11111011","10111111","11110111","11011111","11111101","01111111","11101111","11111110"], // 길
   F:["22242222","22222232","24222242","22222222","22322224","22242222","22222232","22222222"], // 꽃밭
-  T:["..3333..",".333333.","33333333","33333333",".333333.","...aa...","...aa...","..bbbb.."], // 나무
+  T:["22333322","23333332","33333333","33333333","23333332","222aa222","222aa222","22bbbb22"], // 나무
   W:["66666666","60000006","60888806","60888806","60888806","60888806","60000006","66666666"], // 창문
   H:["11111111","10000001","10111101","10111101","10111101","10000001","11111111","11111111"], // 벽
   D:["66666666","65555556","65444456","65444456","65444956","65444456","65444456","66666666"], // 문
-  A:["44444444","55555555","44444444","55555555","6.6.6.6.","........","........","........"]  // 차양
+  A:["44444444","55555555","44444444","55555555","6a6a6a6a","aaaaaaaa","aaaaaaaa","aaaaaaaa"], // 차양
+  L:["cccccccc","cccccccc","cccccccc","11111111","cccccccc","cccccccc","cccccccc","11111111"], // 마루
+  X:["cccccccc","aaaaaaaa","abbbbbba","abbbbbba","aaaaaaaa","ccaccacc","ccaccacc","cccccccc"], // 책상
+  R:["66666666","6b6666b6","66666666","666b6666","6666666b","66666666","6b666666","66666666"], // 바위
+  C:["bbbbbbbb","bbabbbbb","bbbbbbbb","bbbbbabb","bbbbbbbb","babbbbbb","bbbbbbbb","bbbbbabb"], // 동굴 바닥
+  K:["55555555","54555545","55555555","55545555","55555555","54555555","55555455","55555555"]  // 카펫
 };
-const WALK = {G:1,P:1,F:1};
+const WALK = {G:1,P:1,F:1,L:1,C:1,K:1};
 
 /* ─── 8×10 캐릭터 스프라이트 (down / up / side) ─── */
+const same = d=>({down:d, up:d, side:d});
 const SPR = {
   g:{ // 이승구 — 검정 수트
     down:["..6666..",".666666.",".6cccc6.",".6c66c6.",".6cccc6.",".66cc66.",".674476.",".674476.","..6..6..","..6..6.."],
@@ -355,70 +379,232 @@ const SPR = {
     up  :["..aaaa..",".aaaaaa.",".aaaaaa.",".aaaaaa.",".aaaaaa.",".aaaaaa.",".a7777a.","a777777a",".777777.","..c..c.."],
     side:["..aaaa..",".aaaaaa.","..accca.","..ac6ca.","..accca.","..aacca.","..a777a.",".a77777.","..7777..","..c.c..."]
   },
-  n:{ // 친구 NPC
+  n:{ // 친구·스터디장·하객 NPC
     down:["..bbbb..",".bbbbbb.",".bccccb.",".bc66cb.",".bccccb.",".bbccbb.",".b2222b.",".b2222b.","..6..6..","..6..6.."],
     up  :["..bbbb..",".bbbbbb.",".bbbbbb.",".bbbbbb.",".bbbbbb.",".bbbbbb.",".b2222b.",".b2222b.","..6..6..","..6..6.."],
     side:["..bbbb..",".bbbbbb.","..bcccb.","..bc6cb.","..bcccb.","..bbccb.","..b222b.","..b222b.","..6.66..","..6..6.."]
-  }
+  },
+  p: same(["..6666..",".666666.",".6cccc6.",".6c66c6.",".6cccc6.",".66cc66.",".688886.",".688886.","..6..6..","..6..6.."]), // 부모님
+  m: same(["..bbbb..",".bbbbbb.","bb4bb4bb","bbbbbbbb","bb6bb6bb","bbb66bbb",".bbbbbb.","..b..b..","........","........"])  // 몬스터
 };
+const BALLOON = c=>["...44...","..4444..",".444444.",".447444.",".444444.","..4444..","...44...","...6....","....6...","...6...."].map(r=>r.replace(/4/g,c));
+const RING = ["........","........","...99...","..9..9..","..9..9..","...99...","........","........"];
 
-/* ─── STAGE 1 맵 (20×18 타일 = 160×144) ─── */
-const MAP1 = [
+/* ─── 맵 (20×18 타일 = 160×144) ─── */
+const MAPS = {
+study:[
 "HHHHHHHHHHHHHHHHHHHH",
-"HHWWHHHHDDHHHHWWHHHH",
-"HHWWHHHHDDHHHHWWHHHH",
-"HHHHHHHHDDHHHHHHHHHH",
-"AAAAAAAAAAAAAAAAAAAA",
-"GGPPPPPPPPPPPPPPPPGG",
-"GTPPPPPPPPPPPPPPPPTG",
-"GGPPPPPPPPPPPPPPPPGG",
-"GGPPPPPPPPPPPPPPPPGG",
-"GGPPPPPPPPPPPPPPPPGG",
-"GGPPPPPPPPPPPPPPPPGG",
-"GFPPPPPPPPPPPPPPPPFG",
-"GGPPPPPPPPPPPPPPPPGG",
-"GGGGGGGGPPPPGGGGGGGG",
-"GTGGGGGGPPPPGGGGGGTG",
-"GGGGGGGGPPPPGGGGGGGG",
-"GGGGGGGGPPPPGGGGGGGG",
-"GGGGGGGGPPPPGGGGGGGG"
-];
-
-/* ─── 시점 분기 대사 (2단계 기획: 맵·동선은 같고 텍스트만 두 벌) ─── */
-const NAME = {g:'이승구', b:'조예지'};
-const SCRIPT = {
-  friend:{
-    g:[["친구","승구야! 여기 있었네.\n오늘 소개해준다던 그 사람,\n벌써 와 있어."],
-       ["이승구","…심장이 왜 이렇게 뛰지.\n그냥 커피 한 잔인데."],
-       ["친구","저기 카페 앞에 서 있는 사람.\n가서 인사부터 해!"]],
-    b:[["친구","예지야, 늦었다 늦었어!\n그 사람 벌써 도착했대."],
-       ["조예지","…옷 이거 괜찮나?\n괜히 신경 쓰이네."],
-       ["친구","카페 앞에 서 있는 사람이야.\n가서 말 걸어봐, 좋은 사람이야."]]
-  },
-  partner:{
-    g:[["???","…혹시, 승구 씨?"],
-       ["이승구","아, 네! 맞아요.\n(생각보다… 훨씬 밝은 사람이네)"],
-       ["조예지","반가워요. 저 조예지예요.\n커피 좋아하신다면서요?"],
-       ["이승구","…네. 오늘은 왠지\n무슨 맛인지 기억 안 날 것 같지만요."]],
-    b:[["조예지","(저 사람인가? 사진보다\n어깨가 넓네…)\n…혹시, 승구 씨?"],
-       ["이승구","아, 네! 맞아요."],
-       ["조예지","반가워요, 조예지예요.\n(어… 웃는 게 좀 귀엽다)"],
-       ["이승구","커피 좋아하신다고 들었어요.\n제가 아는 곳이 있는데."]]
-  },
-  after:{
-    g:[["이승구","그날의 커피 맛은 기억 안 나는데,\n헤어질 때 하늘색은 아직도 선명해."]],
-    b:[["조예지","집에 오는 길 내내\n실없이 웃었던 것 같아."]]
-  }
+"HHWWHHHWWHHHWWHHWWHH",
+"HHWWHHHWWHHHWWHHWWHH",
+"HHHHHHHHHHHHHHHHHHHH",
+"LLLLLLLLLLLLLLLLLLLL",
+"LLLLLLLLLLLLLLLLLLLL",
+"LLXXXLLLLLLLLLXXXLLL",
+"LLLLLLLLLLLLLLLLLLLL",
+"LLLLLLLLLLLLLLLLLLLL",
+"LLXXXLLLLLLLLLXXXLLL",
+"LLLLLLLLLLLLLLLLLLLL",
+"LLLLLLLLLLLLLLLLLLLL",
+"LLXXXLLLLLLLLLXXXLLL",
+"LLLLLLLLLLLLLLLLLLLL",
+"LLLLLLLLLLLLLLLLLLLL",
+"LLLLLLLLLLLLLLLLLLLL",
+"LLLLLLLLLLLLLLLLLLLL",
+"LLLLLLLLLLLLLLLLLLLL"],
+forest:[
+"TTTTTTTTTTTTTTTTTTTT",
+"TGGGGGTTGGGGGGTTGGGT",
+"TGGFGGGGGGGGGGGGGGGT",
+"TGGGGGGGGGGFGGGGGGGT",
+"TGGGGGGGGGGGGGGGGGGT",
+"TTGGGGGGGGGGGGGGGTTT",
+"TGGGGGGPPPPPPGGGGGGT",
+"TGFGGGGPGGGGPGGGGFGT",
+"TGGGGGGPGGGGPGGGGGGT",
+"TGGGGGGPPPPPPGGGGGGT",
+"TTGGGGGGGGGGGGGGGGTT",
+"TGGGGFGGGGGGGGFGGGGT",
+"TGGGGGGGGGGGGGGGGGGT",
+"TGGGGGGGPPPPGGGGGGGT",
+"TTGGGGGGPPPPGGGGGTTT",
+"TGGGGGGGPPPPGGGGGGGT",
+"TGGGGGGGPPPPGGGGGGGT",
+"TTTTTTTTPPPPTTTTTTTT"],
+cave:[
+"RRRRRRRRRRRRRRRRRRRR",
+"RRRRRRRRCCCCRRRRRRRR",
+"RRRRRCCCCCCCCCCRRRRR",
+"RRRCCCCCCCCCCCCCCRRR",
+"RRCCCCCCCCCCCCCCCCRR",
+"RRCCCCCCCCCCCCCCCCRR",
+"RRRCCCCCCCCCCCCCCRRR",
+"RRRRCCCCCCCCCCCCRRRR",
+"RRRCCCCCCCCCCCCCCRRR",
+"RRCCCCCCCCCCCCCCCCRR",
+"RRRCCCCCCCCCCCCCRRRR",
+"RRRRCCCCCCCCCCCCRRRR",
+"RRRRRCCCCCCCCCCRRRRR",
+"RRRRRRCCCCCCCCRRRRRR",
+"RRRRRRRCCCCCCRRRRRRR",
+"RRRRRRRCCCCCCRRRRRRR",
+"RRRRRRRCCCCCCRRRRRRR",
+"RRRRRRRRRRRRRRRRRRRR"],
+hotel:[
+"HHHHHHHHHHHHHHHHHHHH",
+"HHWWWWWWHHHHWWWWWWHH",
+"HHWWWWWWHHHHWWWWWWHH",
+"HHHHHHHHHHHHHHHHHHHH",
+"KKKKKKKKKKKKKKKKKKKK",
+"KKKKKKKKKKKKKKKKKKKK",
+"KKKKKKKKKKKKKKKKKKKK",
+"KKKKKKKKKKKKKKKKKKKK",
+"KKKKKKKKKKKKKKKKKKKK",
+"KKKKKKKKKKKKKKKKKKKK",
+"KKKKKKKKKKKKKKKKKKKK",
+"KKKKKKKKKKKKKKKKKKKK",
+"KKKKKKKKKKKKKKKKKKKK",
+"KKKKKKKKKKKKKKKKKKKK",
+"KKKKKKKKKKKKKKKKKKKK",
+"KKKKKKKKKKKKKKKKKKKK",
+"KKKKKKKKKKKKKKKKKKKK",
+"KKKKKKKKKKKKKKKKKKKK"],
+hall:[
+"HHHHHHHHHHHHHHHHHHHH",
+"HHWWHHHHHDDHHHHHWWHH",
+"HHWWHHHHHDDHHHHHWWHH",
+"HHHHHHHHHDDHHHHHHHHH",
+"PPPPPPPPPKKPPPPPPPPP",
+"PFFFPPPPPKKPPPPPFFFP",
+"PPPPPPPPPKKPPPPPPPPP",
+"PPPPPPPPPKKPPPPPPPPP",
+"PFFFPPPPPKKPPPPPFFFP",
+"PPPPPPPPPKKPPPPPPPPP",
+"PPPPPPPPPKKPPPPPPPPP",
+"PFFFPPPPPKKPPPPPFFFP",
+"PPPPPPPPPKKPPPPPPPPP",
+"PPPPPPPPPKKPPPPPPPPP",
+"PFFFPPPPPKKPPPPPFFFP",
+"PPPPPPPPPKKPPPPPPPPP",
+"PPPPPPPPPKKPPPPPPPPP",
+"PPPPPPPPPKKPPPPPPPPP"]
 };
+
+/* ─── 스테이지 데이터 (PLAN.md §14 확정본) ───
+   targets 는 순서대로 진행. script[g|b] 한 줄 = 탭 한 번.
+   줄 형식 [화자, 대사, 선택지?]. sp:'partner' 는 상대 캐릭터, 'spark' 반짝이, 'door' 문. */
+const NAME = {g:'이승구', b:'조예지'};
+const STAGES = [
+{ name:'STAGE 1 · 첫 만남의 스터디', map:MAPS.study,
+  targets:[
+    { x:36, y:64, sp:'n', q:'스터디장에게 말을 걸자', script:{
+      g:[["스터디장","승구 씨 왔어요?\n오늘 새로 오신 분 있어요."],
+         ["이승구","(새로운 분…\n일단 인사부터.)"]],
+      b:[["스터디장","예지 씨, 오늘 문제 푸셨죠?\n새로 오신 분 옆자리예요."],
+         ["조예지","(…하, 오늘 문제 어려웠는데.\n옆자리 누구지.)"]] } },
+    { x:104, y:62, sp:'partner', q:'옆자리 사람에게 말을 걸자', item:'🎫', itemName:'스터디 출석표', script:{
+      g:[["조예지","안녕하세요. 조예지예요."],
+         ["이승구","이승구예요.\n이 문제 어떻게 푸셨어요?\n(…근데 옷이 참\n어두침침하게 입으셨네.)"],
+         ["조예지","DP로요. 왜요?"],
+         ["이승구","아뇨, 그냥 궁금해서요.\n그럼 이 부분은요?"]],
+      b:[["이승구","안녕하세요, 이승구입니다.\n이 문제 어떻게 푸셨어요?"],
+         ["조예지","아, 네… DP로요.\n(왜 저리 질문이 많아.\n불편해 죽겠네.)"],
+         ["이승구","그럼 이 부분은요?\n시간복잡도는요?"],
+         ["조예지","…네. 네. 네에."]] } }
+  ],
+  after:{
+    g:[["이승구","그날 알고리즘은 하나도\n기억 안 나는데,\n왜 자꾸 질문하고 싶었는지는\n알 것 같다."]],
+    b:[["조예지","질문 많은 사람. 불편했다.\n…근데 왜 다음 주도 갔지?"]] } },
+
+{ name:'STAGE 2 · 연애의 숲', map:MAPS.forest,
+  deco:[{x:56,y:118,sp:'partner'}],
+  targets:[
+    { x:40, y:56, sp:'spark', gone:true, q:'반짝이는 곳을 찾아가자 (1/2)',
+      photo:{src:'assets/photos/date1.jpg', cap:'용인 대형카페\n— 승구의 첫 대시'}, script:{
+      g:[["이승구","(여기다. 오늘 말한다.)"],
+         ["이승구","저기, 예지 씨.\n우리… 스터디 말고도 볼래요?"],
+         ["조예지","…네?"],
+         ["이승구","(심장 소리가\n커피머신보다 크다.)"]],
+      b:[["조예지","(카페 되게 크네.\n근데 승구 씨 오늘\n왜 말이 없지.)"],
+         ["이승구","저기, 예지 씨.\n우리… 스터디 말고도 볼래요?"],
+         ["조예지","…네?\n(어, 이거… 그런 거 맞지?)"]] } },
+    { x:112, y:96, sp:'spark', gone:true, q:'반짝이는 곳을 찾아가자 (2/2)', item:'📷', itemName:'추억 사진',
+      photo:{src:'assets/photos/date2.jpg', cap:'아웃백\n— 사귀기 시작한 날'}, script:{
+      g:[["이승구","스테이크 나왔다.\n식기 전에… 아니, 그 전에."],
+         ["이승구","우리 사귈래요?"],
+         ["조예지","…고기 식어요. 네."]],
+      b:[["조예지","(스테이크 앞에 두고\n왜 안 먹지.)"],
+         ["이승구","우리 사귈래요?"],
+         ["조예지","…고기 식어요. 네.\n(먹으면서 대답한 거\n평생 놀림감이겠다.)"]] } }
+  ] },
+
+{ name:'STAGE 3 · 시련의 동굴', map:MAPS.cave,
+  deco:[{x:92,y:116,sp:'partner'}],
+  targets:[
+    { x:76, y:48, sp:'m', gone:true, q:'몬스터에게 다가가 A로 공격!', item:'🛡️', itemName:'믿음의 방패', script:{
+      g:[["???","어두침침 코디 몬스터가\n나타났다!"],
+         ["코디 몬스터","오늘도 검정…\n내일도 검정…"],
+         ["이승구","«그 옷도 잘 어울려»!\n▶ 효과가 있다.   HP ■■□"],
+         ["이승구","«같이 옷 사러 갈래?»!\n▶ 크게 효과가 있다.   HP ■□□"],
+         ["이승구","«…근데 검정도 예뻐»!\n▶ HP □□□"],
+         ["","몬스터가 사라졌다.\n알고 보니 그냥\n예지의 취향이었다."]],
+      b:[["???","질문 폭격 몬스터가\n나타났다!"],
+         ["질문 몬스터","왜요? 그건 왜요?\n그래서요?"],
+         ["조예지","«응, 그건 이래서 그래»\n▶ 효과가 있다.   HP ■■□"],
+         ["조예지","«…나중에 알려줄게»\n▶ 크게 효과가 있다.   HP ■□□"],
+         ["조예지","«궁금하면 같이 알아보자»\n▶ HP □□□"],
+         ["","몬스터가 사라졌다.\n알고 보니 그냥\n관심이었다."]] } }
+  ] },
+
+{ name:'STAGE 4 · 프러포즈 (시그니엘)', map:MAPS.hotel,
+  deco:[{x:24,y:36,rows:BALLOON('4')},{x:40,y:44,rows:BALLOON('9')},{x:120,y:40,rows:BALLOON('8')},
+        {x:132,y:52,rows:BALLOON('4')},{x:100,y:36,rows:BALLOON('9')},{x:56,y:38,rows:BALLOON('8')},
+        {x:84,y:66,rows:RING}],
+  targets:[
+    { x:76, y:52, sp:'partner', q:'방 안으로 들어가자', item:'💍', itemName:'반지', script:{
+      g:[["이승구","(풍선 확인. 반지 확인.\n손 떨림 확인.)\n…문 열린다."],
+         ["조예지","승구야, 이게 뭐야."],
+         ["이승구","예지야."],
+         ["이승구","…나랑 결혼해줄래?",["YES","YES"]],
+         ["","예지가 대답 대신 울었다.\n그것도 YES였다."]],
+      b:[["조예지","문이 열렸다.\n방 안에 풍선이…\n(어? 어어?)"],
+         ["조예지","승구야, 이게 뭐야."],
+         ["이승구","예지야.\n…나랑 결혼해줄래?",["YES","YES(울면서)"]],
+         ["","대답을 하려 했는데\n눈물이 먼저 나왔다."]] } }
+  ] },
+
+{ name:'STAGE 5 · 웨딩홀', map:MAPS.hall,
+  deco:[{x:88,y:40,sp:'partner'}],
+  targets:[
+    { x:76, y:100, sp:'n', q:'하객들에게 인사하자', script:{
+      g:[["스터디장","스터디에서 결혼까지…\n출석률 100%네요."]],
+      b:[["스터디장","스터디에서 결혼까지…\n출석률 100%네요."]] } },
+    { x:32, y:72, sp:'p', q:'신랑 부모님께 인사하자', script:{
+      g:[["신랑 부모님","승구야, 다 왔네.\n잘했다."]],
+      b:[["신랑 부모님","예지야, 어서 와.\n우리 아들 잘 부탁한다."]] } },
+    { x:128, y:72, sp:'p', q:'신부 부모님께 인사하자', script:{
+      g:[["신부 부모님","승구 군, 우리 딸\n잘 부탁하네."]],
+      b:[["신부 부모님","예지야, 예쁘다.\n울지 말고."]] } },
+    { x:76, y:28, sp:'door', q:'아이템 4개를 모았다 · 문으로 가자', script:{
+      g:[["","🎫 📷 🛡️ 💍\n모두 확인. 문이 열린다…"],
+         ["이승구","예지야. 평생 잘해라."],
+         ["조예지","…그건 내가 할 말인데?"],
+         ["둘 다","«평생 잘해라!»"]],
+      b:[["","🎫 📷 🛡️ 💍\n모두 확인. 문이 열린다…"],
+         ["조예지","승구야. 평생 잘해라."],
+         ["이승구","…그건 내가 할 말인데?"],
+         ["둘 다","«평생 잘해라!»"]] } }
+  ] }
+];
 
 /* ─── 상태 ─── */
 const S = {
   scene:'title', ch:'g',
-  px:76, py:120, dir:'down', moving:false, frame:0, tick:0,
-  flags:{friend:false, partner:false, item:false},
-  dlg:null, dlgIdx:0, target:null,
-  npc:{ friend:{x:36,y:64,dir:'down'}, partner:{x:112,y:76,dir:'down'} }
+  st:0, ti:0, cleared:false, items:[],
+  px:76, py:120, dir:'up', moving:false, frame:0, tick:0,
+  dlg:null, dlgIdx:0, target:null
 };
+const stage = ()=>STAGES[S.st];
+const cur = ()=>S.cleared ? null : stage().targets[S.ti];
 
 const $ = s=>document.querySelector(s);
 const $$ = s=>[...document.querySelectorAll(s)];
@@ -441,7 +627,6 @@ function drawPix(c, rows, ox, oy){
 /* ─── 화면 배율 (정수배로만 확대해야 도트가 안 뭉개짐) ─── */
 function fit(){
   const st = $('#stage');
-  // 0.5 단위로 내림 — 화면 폭은 최대한 채우되 도트가 심하게 뭉개지진 않게
   const raw = Math.min(st.clientWidth/160, st.clientHeight/144);
   const s = Math.max(1, Math.floor(raw*2)/2);
   cv.style.width = (160*s)+'px';
@@ -451,58 +636,61 @@ addEventListener('resize', fit);
 
 /* ─── 충돌 ─── */
 function solid(x, y){
-  // 캐릭터 발밑 6×4 박스로 판정
+  const map = stage().map;
   for(const [dx,dy] of [[1,6],[6,6],[1,9],[6,9]]){
     const tx = Math.floor((x+dx)/8), ty = Math.floor((y+dy)/8);
     if(tx<0||ty<0||tx>19||ty>17) return true;
-    if(!WALK[MAP1[ty][tx]]) return true;
+    if(!WALK[map[ty][tx]]) return true;
   }
   return false;
 }
 
 /* ─── 렌더 ─── */
+const sprOf = sp => sp==='partner' ? SPR[S.ch==='g'?'b':'g'] : SPR[sp];
 function render(){
+  const st = stage();
+  ctx.fillStyle = PAL['6']; ctx.fillRect(0,0,160,144);
   for(let y=0;y<18;y++) for(let x=0;x<20;x++)
-    drawPix(ctx, TILES[MAP1[y][x]], x*8, y*8);
+    drawPix(ctx, TILES[st.map[y][x]], x*8, y*8);
 
   const list = [];
-  if(!S.flags.partner || true) list.push({...S.npc.friend, sp:SPR.n});
-  list.push({...S.npc.partner, sp:SPR[S.ch==='g'?'b':'g']});
-  list.push({x:S.px, y:S.py, dir:S.dir, sp:SPR[S.ch], me:true});
+  for(const d of st.deco||[]) list.push({x:d.x, y:d.y, rows:d.rows || sprOf(d.sp).down});
+  st.targets.forEach((t,i)=>{
+    const done = S.cleared || i < S.ti;
+    if(t.sp==='door' || (done && t.gone)) return;
+    if(t.sp==='spark'){
+      if(!done){ const on=(S.tick>>3)&1; list.push({x:t.x, y:t.y, rows:on?["..9..","..9..","99999","..9..","..9.."]:["....","....",".99.",".99."]}); }
+      return;
+    }
+    list.push({x:t.x, y:t.y, rows:sprOf(t.sp).down});
+  });
+  list.push({x:S.px, y:S.py, me:true});
   list.sort((a,b)=>a.y-b.y);
 
   for(const o of list){
-    const bob = (o.me && S.moving && (S.frame&1)) ? -1 : 0;
-    const flip = o.dir==='left';
-    const key = (o.dir==='left'||o.dir==='right') ? 'side' : o.dir;
-    if(flip){
+    if(!o.me){ drawPix(ctx, o.rows, o.x, o.y); continue; }
+    const bob = (S.moving && (S.frame&1)) ? -1 : 0;
+    const sp = SPR[S.ch];
+    const key = (S.dir==='left'||S.dir==='right') ? 'side' : S.dir;
+    if(S.dir==='left'){
       ctx.save(); ctx.translate(Math.round(o.x)+8, 0); ctx.scale(-1,1);
-      drawPix(ctx, o.sp[key], 0, Math.round(o.y)+bob);
+      drawPix(ctx, sp[key], 0, Math.round(o.y)+bob);
       ctx.restore();
-    } else {
-      drawPix(ctx, o.sp[key], Math.round(o.x), Math.round(o.y)+bob);
-    }
+    } else drawPix(ctx, sp[key], Math.round(o.x), Math.round(o.y)+bob);
   }
 
   // 상호작용 가능 표시
   const t = nearTarget();
   if(t && !S.dlg){
     ctx.fillStyle = PAL['9'];
-    const yy = Math.round(t.y) - 4 + ((S.tick>>4)&1);
-    ctx.fillRect(Math.round(t.x)+3, yy, 2, 2);
+    ctx.fillRect(t.x+3, t.y - 4 + ((S.tick>>4)&1), 2, 2);
   }
 }
 
 /* ─── 근처 대화 대상 ─── */
 function nearTarget(){
-  const cand = [];
-  if(!S.flags.friend) cand.push(S.npc.friend);
-  else if(!S.flags.partner) cand.push(S.npc.partner);
-  else cand.push(S.npc.partner);
-  for(const c of cand){
-    if(Math.abs(c.x-S.px)<16 && Math.abs(c.y-S.py)<16) return c;
-  }
-  return null;
+  const t = cur();
+  return (t && Math.abs(t.x-S.px)<16 && Math.abs(t.y-S.py)<16) ? t : null;
 }
 
 /* ─── 대사 ─── */
@@ -511,9 +699,13 @@ function say(lines, after){
   showLine();
 }
 function showLine(){
-  const [who, tx] = S.dlg.lines[S.dlgIdx];
+  const [who, tx, choices] = S.dlg.lines[S.dlgIdx];
   $('#dlg .who').textContent = who;
   $('#dlg .tx').textContent = tx;
+  const ch = $('#dlg .ch');
+  ch.innerHTML = (choices||[]).map(c=>`<button>${c}</button>`).join('');
+  ch.classList.toggle('on', !!choices);
+  $('#dlg .nx').style.display = choices ? 'none' : '';
   $('#dlg').classList.add('on');
 }
 function advance(){
@@ -531,36 +723,56 @@ function toast(msg, then){
   t.textContent = msg; t.classList.add('on');
   setTimeout(()=>{ t.classList.remove('on'); if(then) then(); }, 1600);
 }
+function showPhoto(p, then){
+  const el = $('#photo'), img = el.querySelector('img'), ph = el.querySelector('.ph');
+  img.style.display='none'; ph.style.display='';
+  img.onload = ()=>{ img.style.display=''; ph.style.display='none'; };
+  img.src = p.src;
+  el.querySelector('.cap').textContent = p.cap;
+  el.classList.add('on');
+  el.onclick = ()=>{ el.classList.remove('on'); el.onclick=null; then(); };
+}
 
-/* ─── 상호작용 ─── */
+/* ─── 진행 ─── */
+function quest(t){ $('#quest').textContent = t; }
+function inv(){ $('#inv').textContent = S.items.join(''); }
+
 function interact(){
   if(S.dlg){ advance(); return; }
+  if(S.cleared){ nextStage(); return; }
   const t = nearTarget();
   if(!t) return;
-
-  if(!S.flags.friend){
-    say(SCRIPT.friend[S.ch], ()=>{
-      S.flags.friend = true;
-      quest('카페 앞의 그 사람에게 말을 걸자');
-      save();
-    });
-  } else if(!S.flags.partner){
-    say(SCRIPT.partner[S.ch], ()=>{
-      S.flags.partner = true;
-      toast('🎫 «첫 만남의 티켓» 획득!', ()=>{
-        say(SCRIPT.after[S.ch], ()=>{
-          S.flags.item = true;
-          quest('STAGE 1 클리어! · A를 눌러 다음으로');
-          save();
-        });
-      });
-    });
-  } else {
-    // 프로토타입: 여기서 바로 엔딩. 확장 시 STAGE 2로 연결.
-    go('ending');
-  }
+  say(t.script[S.ch], ()=>{
+    const then = ()=>{
+      S.ti++;
+      if(S.ti < stage().targets.length){ quest(stage().targets[S.ti].q); save(); return; }
+      const fin = ()=>{
+        S.cleared = true; save();
+        if(S.st === STAGES.length-1) go('ending');
+        else quest(`${stage().name.split(' ·')[0]} 클리어! · A를 눌러 다음으로`);
+      };
+      stage().after ? say(stage().after[S.ch], fin) : fin();
+    };
+    const gain = ()=>{
+      if(!t.item){ then(); return; }
+      S.items.push(t.item);
+      inv();
+      toast(`${t.item} «${t.itemName}» 획득!`, then);
+    };
+    t.photo ? showPhoto(t.photo, gain) : gain();
+  });
 }
-function quest(t){ $('#quest').textContent = t; }
+
+function setStage(i){
+  S.st = i; S.ti = 0; S.cleared = false;
+  S.px = 76; S.py = 120; S.dir = 'up'; S.target = null;
+  quest(stage().targets[0].q);
+}
+function nextStage(){
+  const el = $('#stage');
+  el.classList.add('fade');
+  setTimeout(()=>{ setStage(S.st+1); save(); el.classList.remove('fade'); }, 260);
+}
 
 /* ─── 입력 ─── */
 const held = {};
@@ -621,8 +833,8 @@ function step(){
 }
 
 /* ─── 저장 ─── */
-const KEY = 'lsg-cyj-wedding-v1';
-function save(){ try{ localStorage.setItem(KEY, JSON.stringify({ch:S.ch, flags:S.flags})); }catch(e){} }
+const KEY = 'lsg-cyj-wedding-v2';
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify({ch:S.ch, st:S.st, ti:S.ti, cleared:S.cleared, items:S.items})); }catch(e){} }
 function load(){ try{ return JSON.parse(localStorage.getItem(KEY)); }catch(e){ return null; } }
 
 /* ─── 씬 전환 ─── */
@@ -631,18 +843,19 @@ function go(name){
   $$('.screen').forEach(s=>s.classList.remove('on'));
   $('#ending').classList.remove('on');
   if(name==='ending'){ $('#ending').classList.add('on'); buildEnding(); window.scrollTo(0,0); $('#ending').scrollTop=0; }
-  else $('#'+(name==='game'?'game':name)).classList.add('on');
+  else $('#'+name).classList.add('on');
   if(name==='game'){ fit(); render(); }
 }
 
-/* ─── 엔딩(청첩장) 조립 — 선택한 쪽을 위로 ─── */
+/* ─── 엔딩(청첩장) 조립 — 선택한 쪽을 위로 ───
+   ※ 아래 부모님 성함·전화·계좌는 임시 더미값. 실값으로 교체할 것 */
 const SIDE = {
   g:{label:'신랑측', who:'이승구',
-     contacts:[['신랑 이승구','010-0000-0000'],['신랑 아버지 ○○○','010-0000-0000'],['신랑 어머니 ○○○','010-0000-0000']],
-     accounts:[['이승구','○○은행 000-0000-0000'],['아버지 ○○○','○○은행 000-0000-0000'],['어머니 ○○○','○○은행 000-0000-0000']]},
+     contacts:[['신랑 이승구','010-1111-2222'],['신랑 아버지 이철수','010-1111-3333'],['신랑 어머니 김영희','010-1111-4444']],
+     accounts:[['이승구','국민은행 123456-01-234567'],['아버지 이철수','신한은행 110-123-456789'],['어머니 김영희','우리은행 1002-123-456789']]},
   b:{label:'신부측', who:'조예지',
-     contacts:[['신부 조예지','010-0000-0000'],['신부 아버지 ○○○','010-0000-0000'],['신부 어머니 ○○○','010-0000-0000']],
-     accounts:[['조예지','○○은행 000-0000-0000'],['아버지 ○○○','○○은행 000-0000-0000'],['어머니 ○○○','○○은행 000-0000-0000']]}
+     contacts:[['신부 조예지','010-5555-6666'],['신부 아버지 조민수','010-5555-7777'],['신부 어머니 박미정','010-5555-8888']],
+     accounts:[['조예지','카카오뱅크 3333-01-2345678'],['아버지 조민수','농협 302-1234-5678-91'],['어머니 박미정','하나은행 123-456789-01234']]}
 };
 function buildEnding(){
   const order = S.ch==='g' ? ['g','b'] : ['b','g'];
@@ -660,8 +873,12 @@ function buildEnding(){
           <button data-copy="${a}">복사</button></div>`).join('')}
     </details>`).join('');
 
-  // D-Day (실제 예식일로 교체)
-  const WEDDING = new Date(2026, 9, 10, 12, 0);
+  // D-Day
+  const WEDDING = new Date(2027, 1, 21, 13, 40);
+  const MAP_LINKS = { // 루이비스컨벤션 송파문정점 37.484365,127.1173266
+    kakao:'https://map.kakao.com/link/to/루이비스컨벤션 송파문정점,37.484365,127.1173266',
+    naver:'https://naver.me/Gctrli34',
+    tmap:'tmap://route?goalname=루이비스컨벤션 송파문정점&goaly=37.484365&goalx=127.1173266' };
   const d = Math.ceil((WEDDING - new Date())/864e5);
   $('#dday').textContent = d>0 ? `D-${d}` : (d===0 ? 'D-DAY' : '결혼했습니다 💍');
 }
@@ -675,19 +892,16 @@ $('#ending').addEventListener('click', async e=>{
     }
     b.textContent='복사됨'; setTimeout(()=>b.textContent='복사',1200);
   }
-  if(e.target.dataset.map){ alert('배포 시 실제 지도 앱 링크 연결 (카카오맵/네이버지도/티맵)'); }
+  if(e.target.dataset.map){ location.href = MAP_LINKS[e.target.dataset.map]; }
 });
 $('#shareBtn').addEventListener('click', async ()=>{
-  const data = {title:'이승구 ♥ 조예지 결혼합니다', text:'2026년 ○월 ○일 토요일 낮 12시', url:location.href};
+  const data = {title:'이승구 ♥ 조예지 결혼합니다', text:'2027년 2월 21일 일요일 오후 1시 40분 · 루이비스컨벤션 송파문정점', url:location.href};
   if(navigator.share){ try{ await navigator.share(data); return; }catch(_){} }
   try{ await navigator.clipboard.writeText(location.href); alert('링크가 복사되었습니다'); }
   catch(_){ alert(location.href); }
 });
 $('#replayBtn').addEventListener('click', ()=>{
-  S.flags = {friend:false, partner:false, item:false};
-  S.px=76; S.py=120; S.dir='up'; save();
-  quest('STAGE 1 · 첫 만남의 거리');
-  go('game');
+  S.items = []; inv(); setStage(0); save(); go('game');
 });
 
 /* ─── 타이틀 / 선택 ─── */
@@ -697,15 +911,14 @@ $$('[data-act]').forEach(b=>b.addEventListener('click', ()=>{
   if(a==='new'){ localStorage.removeItem(KEY); go('select'); }
   if(a==='cont'){
     const sv = load();
-    if(sv){ S.ch=sv.ch; S.flags=sv.flags; }
-    quest(S.flags.item ? 'STAGE 1 클리어! · A를 눌러 다음으로'
-        : S.flags.friend ? '카페 앞의 그 사람에게 말을 걸자'
-        : 'STAGE 1 · 친구에게 말을 걸자');
+    if(sv){
+      S.ch=sv.ch; setStage(sv.st); S.ti=sv.ti; S.cleared=sv.cleared; S.items=sv.items||[]; inv();
+      quest(S.cleared ? `${stage().name.split(' ·')[0]} 클리어! · A를 눌러 다음으로` : stage().targets[S.ti].q);
+    }
     go('game');
   }
 }));
 $$('.pick').forEach(p=>{
-  // 선택지 미리보기 스프라이트
   const c = p.querySelector('canvas').getContext('2d');
   c.imageSmoothingEnabled = false;
   c.scale(2,2);
@@ -719,14 +932,11 @@ $$('.pick').forEach(p=>{
   });
 });
 $('#goBtn').addEventListener('click', ()=>{
-  S.px=76; S.py=120; S.dir='up';
-  quest('STAGE 1 · 친구에게 말을 걸자');
-  save(); go('game');
+  S.items = []; inv(); setStage(0); save(); go('game');
 });
 
 /* ─── 시작 ─── */
 if(load()) $('#contBtn').style.display='block';
-// 링크에 #invitation 이 붙어 오면 게임 건너뛰고 청첩장으로
 if(location.hash === '#invitation') go('ending');
 fit();
 requestAnimationFrame(step);
